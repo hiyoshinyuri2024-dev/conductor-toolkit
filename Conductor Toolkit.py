@@ -1,420 +1,210 @@
-\# Conductor Toolkit
-
-\# UTF-8 compatible, emoji-free
-
-\# Orchestra-based priming for AI reasoning and module integration
-
-
+# Conductor Toolkit
+# UTF-8 compatible, emoji-free
+# Orchestra-based priming for AI reasoning and module integration
 
 class Conductor:
-
-&nbsp;   """
-
-&nbsp;   An orchestra conductor for AI reasoning.
-
-&nbsp;   Primes the AI to think in terms of harmony, balance, and coordination.
-
-&nbsp;   """
-
-&nbsp;   
-
-&nbsp;   def \_\_init\_\_(self, tempo="moderato"):
-
-&nbsp;       """
-
-&nbsp;       Initialize the conductor.
-
-&nbsp;       
-
-&nbsp;       Args:
-
-&nbsp;           tempo: The pace of reasoning (largo/moderato/allegro)
-
-&nbsp;       """
-
-&nbsp;       self.tempo = tempo
-
-&nbsp;       self.instruments = {}
-
-&nbsp;       self.score = \[]
-
-&nbsp;       
-
-&nbsp;   def add\_instrument(self, name, module, role="melody"):
-
-&nbsp;       """
-
-&nbsp;       Add a module as an instrument to the orchestra.
-
-&nbsp;       
-
-&nbsp;       Args:
-
-&nbsp;           name: Instrument name (e.g., 'violin', 'cello')
-
-&nbsp;           module: The module/function to be integrated
-
-&nbsp;           role: Musical role (melody/harmony/rhythm/bass)
-
-&nbsp;       """
-
-&nbsp;       self.instruments\[name] = {
-
-&nbsp;           'module': module,
-
-&nbsp;           'role': role,
-
-&nbsp;           'tuned': False
-
-&nbsp;       }
-
-&nbsp;       return f"\[Conductor] {name} ({role}) has joined the orchestra."
-
-&nbsp;   
-
-&nbsp;   def tune(self):
-
-&nbsp;       """
-
-&nbsp;       Tune all instruments (initialize modules).
-
-&nbsp;       Ensures each module is ready and compatible.
-
-&nbsp;       """
-
-&nbsp;       results = \[]
-
-&nbsp;       for name, instrument in self.instruments.items():
-
-&nbsp;           if hasattr(instrument\['module'], 'initialize'):
-
-&nbsp;               instrument\['module'].initialize()
-
-&nbsp;           instrument\['tuned'] = True
-
-&nbsp;           results.append(f"\[Tuning] {name} is ready.")
-
-&nbsp;       return "\\n".join(results)
-
-&nbsp;   
-
-&nbsp;   def rehearse(self, section):
-
-&nbsp;       """
-
-&nbsp;       Rehearse a specific section (test module interactions).
-
-&nbsp;       
-
-&nbsp;       Args:
-
-&nbsp;           section: Description of what to test
-
-&nbsp;       """
-
-&nbsp;       return f"\[Rehearsal] Testing {section}... listening for dissonance..."
-
-&nbsp;   
-
-&nbsp;   def conduct(self, \*args, \*\*kwargs):
-
-&nbsp;       """
-
-&nbsp;       Conduct the performance (execute integrated modules).
-
-&nbsp;       Coordinates timing, balance, and harmony.
-
-&nbsp;       """
-
-&nbsp;       if not all(i\['tuned'] for i in self.instruments.values()):
-
-&nbsp;           return "\[Conductor] Please tune the instruments first!"
-
-&nbsp;       
-
-&nbsp;       self.score.append("\[Performance begins]")
-
-&nbsp;       
-
-&nbsp;       # Execute modules in harmonic order
-
-&nbsp;       results = {}
-
-&nbsp;       
-
-&nbsp;       # First: melody (primary modules)
-
-&nbsp;       for name, instrument in self.instruments.items():
-
-&nbsp;           if instrument\['role'] == 'melody':
-
-&nbsp;               self.score.append(f"\[{name} plays melody]")
-
-&nbsp;               results\[name] = self.\_play(instrument\['module'], \*args, \*\*kwargs)
-
-&nbsp;       
-
-&nbsp;       # Then: harmony (supporting modules)
-
-&nbsp;       for name, instrument in self.instruments.items():
-
-&nbsp;           if instrument\['role'] == 'harmony':
-
-&nbsp;               self.score.append(f"\[{name} adds harmony]")
-
-&nbsp;               results\[name] = self.\_play(instrument\['module'], \*args, \*\*kwargs)
-
-&nbsp;       
-
-&nbsp;       # Then: rhythm (timing/control modules)
-
-&nbsp;       for name, instrument in self.instruments.items():
-
-&nbsp;           if instrument\['role'] == 'rhythm':
-
-&nbsp;               self.score.append(f"\[{name} keeps rhythm]")
-
-&nbsp;               results\[name] = self.\_play(instrument\['module'], \*args, \*\*kwargs)
-
-&nbsp;       
-
-&nbsp;       # Finally: bass (foundation modules)
-
-&nbsp;       for name, instrument in self.instruments.items():
-
-&nbsp;           if instrument\['role'] == 'bass':
-
-&nbsp;               self.score.append(f"\[{name} provides foundation]")
-
-&nbsp;               results\[name] = self.\_play(instrument\['module'], \*args, \*\*kwargs)
-
-&nbsp;       
-
-&nbsp;       self.score.append("\[Performance complete]")
-
-&nbsp;       
-
-&nbsp;       return self.blend(results)
-
-&nbsp;   
-
-&nbsp;   def \_play(self, module, \*args, \*\*kwargs):
-
-&nbsp;       """Execute a module (private method)."""
-
-&nbsp;       if callable(module):
-
-&nbsp;           return module(\*args, \*\*kwargs)
-
-&nbsp;       return module
-
-&nbsp;   
-
-&nbsp;   def blend(self, results):
-
-&nbsp;       """
-
-&nbsp;       Blend all results into a harmonious whole.
-
-&nbsp;       Adjusts balance and resolves conflicts.
-
-&nbsp;       """
-
-&nbsp;       return {
-
-&nbsp;           'performance': results,
-
-&nbsp;           'score': self.score,
-
-&nbsp;           'quality': 'harmonious',
-
-&nbsp;           'tempo': self.tempo
-
-&nbsp;       }
-
-&nbsp;   
-
-&nbsp;   def crescendo(self):
-
-&nbsp;       """Increase intensity (for iterative processes)."""
-
-&nbsp;       self.tempo = "allegro"
-
-&nbsp;       return "\[Conductor] Building intensity..."
-
-&nbsp;   
-
-&nbsp;   def diminuendo(self):
-
-&nbsp;       """Decrease intensity (for gentle conclusions)."""
-
-&nbsp;       self.tempo = "largo"
-
-&nbsp;       return "\[Conductor] Softening..."
-
-&nbsp;   
-
-&nbsp;   def fermata(self):
-
-&nbsp;       """Pause and reflect (for debugging/inspection)."""
-
-&nbsp;       return {
-
-&nbsp;           'current\_state': self.instruments,
-
-&nbsp;           'score\_so\_far': self.score,
-
-&nbsp;           'message': '\[Conductor holds the moment...]'
-
-&nbsp;       }
-
-
-
-
-
-def orchestrate(\*modules, tempo="moderato"):
-
-&nbsp;   """
-
-&nbsp;   Quick function to orchestrate multiple modules.
-
-&nbsp;   
-
-&nbsp;   Usage:
-
-&nbsp;       result = orchestrate(module\_a, module\_b, module\_c)
-
-&nbsp;   
-
-&nbsp;   Args:
-
-&nbsp;       \*modules: Modules to integrate
-
-&nbsp;       tempo: Pace of integration
-
-&nbsp;   
-
-&nbsp;   Returns:
-
-&nbsp;       Harmoniously integrated result
-
-&nbsp;   """
-
-&nbsp;   conductor = Conductor(tempo=tempo)
-
-&nbsp;   
-
-&nbsp;   # Assign roles based on position
-
-&nbsp;   roles = \['melody', 'harmony', 'rhythm', 'bass']
-
-&nbsp;   
-
-&nbsp;   for i, module in enumerate(modules):
-
-&nbsp;       role = roles\[i % len(roles)]
-
-&nbsp;       name = f"instrument\_{i+1}"
-
-&nbsp;       conductor.add\_instrument(name, module, role)
-
-&nbsp;   
-
-&nbsp;   conductor.tune()
-
-&nbsp;   return conductor.conduct()
-
-
-
-
-
-\# Example usage
-
-if \_\_name\_\_ == "\_\_main\_\_":
-
-&nbsp;   print("=== Conductor Toolkit Demo ===\\n")
-
-&nbsp;   
-
-&nbsp;   # Example modules (instruments)
-
-&nbsp;   def violin():
-
-&nbsp;       return "Beautiful melody flows..."
-
-&nbsp;   
-
-&nbsp;   def cello():
-
-&nbsp;       return "Rich harmony supports..."
-
-&nbsp;   
-
-&nbsp;   def drums():
-
-&nbsp;       return "Steady rhythm guides..."
-
-&nbsp;   
-
-&nbsp;   # Create conductor
-
-&nbsp;   conductor = Conductor(tempo="moderato")
-
-&nbsp;   
-
-&nbsp;   # Add instruments
-
-&nbsp;   print(conductor.add\_instrument("violin", violin, "melody"))
-
-&nbsp;   print(conductor.add\_instrument("cello", cello, "harmony"))
-
-&nbsp;   print(conductor.add\_instrument("drums", drums, "rhythm"))
-
-&nbsp;   print()
-
-&nbsp;   
-
-&nbsp;   # Tune
-
-&nbsp;   print(conductor.tune())
-
-&nbsp;   print()
-
-&nbsp;   
-
-&nbsp;   # Rehearse
-
-&nbsp;   print(conductor.rehearse("opening sequence"))
-
-&nbsp;   print()
-
-&nbsp;   
-
-&nbsp;   # Perform
-
-&nbsp;   print("=== Performance ===")
-
-&nbsp;   result = conductor.conduct()
-
-&nbsp;   print("\\nResult:")
-
-&nbsp;   for key, value in result.items():
-
-&nbsp;       print(f"{key}: {value}")
-
-&nbsp;   print()
-
-&nbsp;   
-
-&nbsp;   # Quick orchestration
-
-&nbsp;   print("\\n=== Quick Orchestration ===")
-
-&nbsp;   quick\_result = orchestrate(violin, cello, drums)
-
-&nbsp;   print("Score:", quick\_result\['score'])
-
-
-
+    """
+    An orchestra conductor for AI reasoning.
+    Primes the AI to think in terms of harmony, balance, and coordination.
+    """
+    
+    def __init__(self, tempo="moderato"):
+        """
+        Initialize the conductor.
+        
+        Args:
+            tempo: The pace of reasoning (largo/moderato/allegro)
+        """
+        self.tempo = tempo
+        self.instruments = {}
+        self.score = []
+        
+    def add_instrument(self, name, module, role="melody"):
+        """
+        Add a module as an instrument to the orchestra.
+        
+        Args:
+            name: Instrument name (e.g., 'violin', 'cello')
+            module: The module/function to be integrated
+            role: Musical role (melody/harmony/rhythm/bass)
+        """
+        self.instruments[name] = {
+            'module': module,
+            'role': role,
+            'tuned': False
+        }
+        return f"[Conductor] {name} ({role}) has joined the orchestra."
+    
+    def tune(self):
+        """
+        Tune all instruments (initialize modules).
+        Ensures each module is ready and compatible.
+        """
+        results = []
+        for name, instrument in self.instruments.items():
+            if hasattr(instrument['module'], 'initialize'):
+                instrument['module'].initialize()
+            instrument['tuned'] = True
+            results.append(f"[Tuning] {name} is ready.")
+        return "\n".join(results)
+    
+    def rehearse(self, section):
+        """
+        Rehearse a specific section (test module interactions).
+        
+        Args:
+            section: Description of what to test
+        """
+        return f"[Rehearsal] Testing {section}... listening for dissonance..."
+    
+    def conduct(self, *args, **kwargs):
+        """
+        Conduct the performance (execute integrated modules).
+        Coordinates timing, balance, and harmony.
+        """
+        if not all(i['tuned'] for i in self.instruments.values()):
+            return "[Conductor] Please tune the instruments first!"
+        
+        self.score.append("[Performance begins]")
+        
+        # Execute modules in harmonic order
+        results = {}
+        
+        # First: melody (primary modules)
+        for name, instrument in self.instruments.items():
+            if instrument['role'] == 'melody':
+                self.score.append(f"[{name} plays melody]")
+                results[name] = self._play(instrument['module'], *args, **kwargs)
+        
+        # Then: harmony (supporting modules)
+        for name, instrument in self.instruments.items():
+            if instrument['role'] == 'harmony':
+                self.score.append(f"[{name} adds harmony]")
+                results[name] = self._play(instrument['module'], *args, **kwargs)
+        
+        # Then: rhythm (timing/control modules)
+        for name, instrument in self.instruments.items():
+            if instrument['role'] == 'rhythm':
+                self.score.append(f"[{name} keeps rhythm]")
+                results[name] = self._play(instrument['module'], *args, **kwargs)
+        
+        # Finally: bass (foundation modules)
+        for name, instrument in self.instruments.items():
+            if instrument['role'] == 'bass':
+                self.score.append(f"[{name} provides foundation]")
+                results[name] = self._play(instrument['module'], *args, **kwargs)
+        
+        self.score.append("[Performance complete]")
+        
+        return self.blend(results)
+    
+    def _play(self, module, *args, **kwargs):
+        """Execute a module (private method)."""
+        if callable(module):
+            return module(*args, **kwargs)
+        return module
+    
+    def blend(self, results):
+        """
+        Blend all results into a harmonious whole.
+        Adjusts balance and resolves conflicts.
+        """
+        return {
+            'performance': results,
+            'score': self.score,
+            'quality': 'harmonious',
+            'tempo': self.tempo
+        }
+    
+    def crescendo(self):
+        """Increase intensity (for iterative processes)."""
+        self.tempo = "allegro"
+        return "[Conductor] Building intensity..."
+    
+    def diminuendo(self):
+        """Decrease intensity (for gentle conclusions)."""
+        self.tempo = "largo"
+        return "[Conductor] Softening..."
+    
+    def fermata(self):
+        """Pause and reflect (for debugging/inspection)."""
+        return {
+            'current_state': self.instruments,
+            'score_so_far': self.score,
+            'message': '[Conductor holds the moment...]'
+        }
+
+
+def orchestrate(*modules, tempo="moderato"):
+    """
+    Quick function to orchestrate multiple modules.
+    
+    Usage:
+        result = orchestrate(module_a, module_b, module_c)
+    
+    Args:
+        *modules: Modules to integrate
+        tempo: Pace of integration
+    
+    Returns:
+        Harmoniously integrated result
+    """
+    conductor = Conductor(tempo=tempo)
+    
+    # Assign roles based on position
+    roles = ['melody', 'harmony', 'rhythm', 'bass']
+    
+    for i, module in enumerate(modules):
+        role = roles[i % len(roles)]
+        name = f"instrument_{i+1}"
+        conductor.add_instrument(name, module, role)
+    
+    conductor.tune()
+    return conductor.conduct()
+
+
+# Example usage
+if __name__ == "__main__":
+    print("=== Conductor Toolkit Demo ===\n")
+    
+    # Example modules (instruments)
+    def violin():
+        return "Beautiful melody flows..."
+    
+    def cello():
+        return "Rich harmony supports..."
+    
+    def drums():
+        return "Steady rhythm guides..."
+    
+    # Create conductor
+    conductor = Conductor(tempo="moderato")
+    
+    # Add instruments
+    print(conductor.add_instrument("violin", violin, "melody"))
+    print(conductor.add_instrument("cello", cello, "harmony"))
+    print(conductor.add_instrument("drums", drums, "rhythm"))
+    print()
+    
+    # Tune
+    print(conductor.tune())
+    print()
+    
+    # Rehearse
+    print(conductor.rehearse("opening sequence"))
+    print()
+    
+    # Perform
+    print("=== Performance ===")
+    result = conductor.conduct()
+    print("\nResult:")
+    for key, value in result.items():
+        print(f"{key}: {value}")
+    print()
+    
+    # Quick orchestration
+    print("\n=== Quick Orchestration ===")
+    quick_result = orchestrate(violin, cello, drums)
+    print("Score:", quick_result['score'])
 
 
